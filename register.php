@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'id'    => $user['id'],
                         'name'  => $user['name'],
                         'email' => $user['email'],
-                        'profile_image' => $user['profile_image']
+                        'profile_image' => $user['profile_image'],
                         'is_admin' => $user['is_admin']
                     ];
 
