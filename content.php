@@ -117,32 +117,36 @@ $posts = $stmt->fetchAll();
 </div>
 
 <!-- Show posts -->
-<h2 style="color: white; text-align:center; margin-top: 50px;"><i class="fas fa-list"></i> Your Posts</h2>
+<h2 style="color: white; text-align:center; margin-top: 50px;"><i class="fas fa-list"></i>  Posts</h2>
 
 <?php if ($posts): ?>
     <?php foreach ($posts as $post): ?>
         <div style="background: #fff; color: #333; padding: 20px; margin: 20px auto; max-width: 600px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0);">
             <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                <?php if (!empty($profileImage) && file_exists($profileImage)): ?>
-                    <img src="<?= htmlspecialchars($profileImage) ?>" alt="Author" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
-                <?php endif; ?>
-                <div>
-                    <strong><?= htmlspecialchars($post['name']) ?></strong>
-                    <small style="color: gray;"><i class="far fa-clock"></i> <?= $post['created_at'] ?></small>
-                </div>
+            <?php if (!empty($post['profile_image']) && file_exists($post['profile_image'])): ?>
+                <img src="<?= htmlspecialchars($post['profile_image']) ?>" alt="Author" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+            <?php endif; ?>
+            <div>
+                <strong><?= htmlspecialchars($post['name']) ?></strong>
+                <small style="color: gray;"><i class="far fa-clock"></i> <?= $post['created_at'] ?></small>
             </div>
+        </div>
 
             <h3><?= htmlspecialchars($post['title']) ?></h3>
             <p><?= nl2br(htmlspecialchars($post['body'])) ?></p>
 
-            <?php if ($post['user_id'] == $_SESSION['user']['id']): ?>
+            <?php if (
+                $post['user_id'] == $_SESSION['user']['id'] ||
+                (!empty($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin'])
+            ): ?>
                 <div style="margin-top: 10px;">
                     <a href="edit.php?id=<?= $post['id'] ?>" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
                     <a href="delete_post.php?id=<?= $post['id'] ?>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this post?');">
                         <i class="fas fa-trash"></i> Delete
                     </a>
                 </div>
-            <?php endif; ?> 
+            <?php endif; ?>
+
 
 
             <?php if (!empty($post['image_path']) && file_exists($post['image_path'])): ?>

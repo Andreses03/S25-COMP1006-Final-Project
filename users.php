@@ -100,6 +100,12 @@ try {
 <div class="manage-container">
     <h2><i class="fas fa-users-cog"></i> Manage Users</h2>
 
+<div style="text-align: center; margin-bottom: 20px;">
+    <a href="dashboard.php" class="btn" style="background-color: #2ecc71; padding: 10px 20px; color: white; border-radius: 8px; text-decoration: none;">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
     <?php if (count($users) > 0): ?>
         <table class="user-table">
             <tr>
